@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Semangat untuk Imut! ❤️</title> 
+</head>
+<body id="body-utama" style="
+    /* Style Lembut dan Hangat - Awal Hitam */
+    background-color: #1c1c1c; 
+    color: #f0f0f0; 
+    font-family: 'Segoe UI', sans-serif; 
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    transition: background-color 1s ease-in-out; 
+
+    /* Background foto akan ditambahkan via JS di akhir */
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay; 
+">
+
+    <h1 id="teks-utama" style="
+        font-size: 2.3em; 
+        margin-bottom: 30px; 
+        font-weight: normal; 
+        color: #FFFFFF; 
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
+        
+        opacity: 0; 
+        transform: scale(0.95);
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out; 
+    ">Haiii, kamuuu masih sakit ya??..</h1> 
+
+    <button id="tombol-aksi" onclick="lanjutkan()" style="
+        padding: 16px 32px; 
+        font-size: 1.2em; 
+        background-color: #6a5acd; 
+        color: white; 
+        border: none; 
+        border-radius: 10px; 
+        cursor: pointer;
+        transition: all 0.3s ease-in-out; 
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    ">Buka Pesan Ini</button>
+
+    <script>
+        let tahapSekarang = 0; 
+        const elemenTeks = document.getElementById('teks-utama');
+        const tombol = document.getElementById('tombol-aksi');
+        const body = document.getElementById('body-utama');
+        
+        // =======================================================
+        // >>>>>>>>>> NAMA SUDAH DIGANTI MENJADI "Imut" <<<<<<<<<<<
+        // =======================================================
+        const NAMA_DIA = "Imut"; 
+
+        // PESAN TAHAP
+        const pesanTahap0 = "Haiii, kamuuu masih sakit ya??..";
+        const pesanTahap1 = "Jangan lupa makan sama minum obat nya ya. biar cepet sembuh!";
+        const pesanTahap2 = "Kaloo mau ngeluh ada akuuu, okeyy?? jangan pernah sungkan yaa";
+        
+        // Pesan Manis di Pop-up
+        const PESAN_FINAL_POPUP = `Cepet sembuh ya, ${NAMA_DIA}. Aku kangen liat kamu senyum. ❤️`; 
+        
+        // Pesan Penutup
+        const PESAN_RESET_AKHIR = `Nah, istirahat yang bener ya. Cepat sembuh, ${NAMA_DIA}! ☺️`;
+
+        // Nama file foto dia (PATH HARUS SAMA!)
+        const FOTO_DIA_FILE = 'cewek_sakit.jpg'; 
+
+        // Fungsi untuk mengaktifkan animasi Fade-in/Zoom
+        function animateText(text, newColor = '#FFFFFF') {
+            elemenTeks.style.opacity = '0';
+            elemenTeks.style.transform = 'scale(0.95)';
+            elemenTeks.style.color = newColor;
+
+            setTimeout(() => {
+                elemenTeks.textContent = text;
+                elemenTeks.style.opacity = '1';
+                elemenTeks.style.transform = 'scale(1)';
+            }, 50); 
+        }
+
+        function lanjutkan() {
+            tahapSekarang++; 
+
+            if (tahapSekarang === 1) {
+                // TAHAP 1
+                animateText(pesanTahap1, '#FFC0CB'); 
+                tombol.textContent = "Oke, lanjut!"; 
+                tombol.style.backgroundColor = '#8a2be2'; 
+
+            } else if (tahapSekarang === 2) {
+                // TAHAP 2
+                animateText(pesanTahap2, '#ADD8E6'); 
+                tombol.textContent = "Iya, aku istirahat."; 
+                tombol.style.backgroundColor = '#483d8b'; 
+
+            } else if (tahapSekarang === 3) {
+                // TAHAP 3: KEJUTAN POP-UP MANIS
+
+                // 1. Tampilkan Pop-up Manis
+                alert(PESAN_FINAL_POPUP);
+                
+                // 2. Ganti Tampilan Akhir (dengan FOTO dia!)
+                body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${FOTO_DIA_FILE}')`; 
+                body.style.backgroundColor = '#000000'; 
+                body.style.color = '#FFFFFF';
+                animateText(PESAN_RESET_AKHIR, '#FFFFFF'); 
+                elemenTeks.style.fontSize = '2.3em'; 
+
+                // 3. Ubah Tombol dan Reset Tahap
+                tombol.textContent = "Baca Lagi"; 
+                tombol.style.backgroundColor = '#202020'; 
+                tombol.style.color = '#FFDAB9'; 
+                tombol.style.boxShadow = '0 6px 10px rgba(0, 0, 0, 0.5)';
+                tahapSekarang = 0; 
+                
+            } else if (tahapSekarang === 0) {
+                // TAHAP 0: Reset Halaman
+                body.style.backgroundColor = '#1c1c1c';
+                body.style.color = '#f0f0f0';
+                body.style.backgroundImage = 'none'; 
+                animateText(pesanTahap0, '#FFFFFF');
+                elemenTeks.style.fontSize = '2.3em';
+
+                tombol.textContent = "Buka Pesan Ini"; 
+                tombol.style.backgroundColor = '#6a5acd';
+                tombol.style.color = 'white';
+                tombol.style.boxShadow = '0 6px 10px rgba(0, 0, 0, 0.3)';
+                tahapSekarang = 0; 
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            elemenTeks.textContent = pesanTahap0;
+            elemenTeks.style.opacity = '1';
+            elemenTeks.style.transform = 'scale(1)';
+        });
+    </script>
+
+</body>
+</html>
